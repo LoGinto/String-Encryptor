@@ -36,11 +36,11 @@ def server_mode(port):
             conn.close()
             continue
 
-        print("🔄 Exchanging public keys...")
+        print(" Exchanging public keys...")
         conn.send(public_key.save_pkcs1())  # Send own public key
         peer_public_key = rsa.PublicKey.load_pkcs1(conn.recv(1024))  # Receive peer's public key
 
-        print("✅ Secure connection established! You can now chat.")
+        print("Secure connection established! You can now chat.")
 
         # Start listening for messages
         threading.Thread(target=receive_messages, args=(conn,), daemon=True).start()
@@ -67,11 +67,11 @@ def client_mode(target_ip, target_port):
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((target_ip, target_port))
 
-    print("🔄 Exchanging public keys...")
+    print(" Exchanging public keys...")
     peer_public_key = rsa.PublicKey.load_pkcs1(client.recv(1024))  # Receive peer's public key
     client.send(public_key.save_pkcs1())  # Send own public key
 
-    print("✅ Secure connection established! You can now chat.")
+    print(" Secure connection established! You can now chat.")
 
     # Start listening for messages
     threading.Thread(target=receive_messages, args=(client,), daemon=True).start()
