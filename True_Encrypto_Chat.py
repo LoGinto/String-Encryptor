@@ -54,9 +54,9 @@ def receive_messages(conn):
             if not encrypted_message:
                 break
             decrypted_message = rsa.decrypt(encrypted_message, private_key).decode()
-            print(f"\n📩 Message: {decrypted_message}")
+            print(f"\n Message: {decrypted_message}")
         except Exception:
-            print("⚠️ Connection closed by peer.")
+            print("Connection closed by peer.")
             break
     conn.close()
 
